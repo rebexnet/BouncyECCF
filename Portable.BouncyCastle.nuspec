@@ -6,7 +6,7 @@
     <title>Bouncy Castle PCL</title>
     <authors>Oren Novotny</authors>
     <owners>onovotny</owners>
-    <projectUrl>https://github.com/onovotny/BouncyCastle-PCL</projectUrl>
+    <projectUrl>https://github.com/onovotny/bc-csharp</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
       Support for .NET 4, WP 8 SL, WP 8.1, Windows 8, MonoTouch, MonoAndroid, Xamarin.iOS, Core CLR

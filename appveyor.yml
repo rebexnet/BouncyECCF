@@ -12,10 +12,10 @@ before_build:
   - cmd: '.\packages\GitVersion.CommandLine\tools\GitVersion.exe /l console /output buildserver /updateAssemblyInfo'
   
 build_script:
-  - cmd: dotnet restore BouncyCastle-PCL.sln
-  - cmd: dotnet build BouncyCastle-PCL.sln -c Release
+  - cmd: dotnet restore BouncyCastle.sln
+  - cmd: dotnet build BouncyCastle.sln -c Release
   
 after_build:
-  - cmd: '.\packages\gitlink\lib\net45\GitLink.exe . -f BouncyCastle-PCL.sln -u https://github.com/onovotny/BouncyCastle-PCL -s %APPVEYOR_REPO_COMMIT% -errorsaswarnings'  
+  - cmd: '.\packages\gitlink\lib\net45\GitLink.exe . -f BouncyCastle.sln -u https://github.com/onovotny/bc-csharp -s %APPVEYOR_REPO_COMMIT% -errorsaswarnings'  
   - cmd: nuget pack Portable.BouncyCastle.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
   - ps: 'cmd /c "appveyor PushArtifact Portable.BouncyCastle.%GitVersion_NuGetVersion%.nupkg";if($lastexitcode -ne 0){$lastexitcode = 0}'
