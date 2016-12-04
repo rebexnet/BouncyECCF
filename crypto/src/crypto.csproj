@@ -1,7 +1,7 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.3;netstandard1.0;net45;portable-net4+sl5+wp8+win8+wpa81</TargetFrameworks>
+    <TargetFrameworks>netstandard1.3;netstandard1.0;portable-net4+sl5+wp8+win8+wpa81;net4</TargetFrameworks>
     <AssemblyName>crypto</AssemblyName>
     <RootNamespace>crypto</RootNamespace>
     <AssemblyOriginatorKeyFile>..\..\BouncyCastle.snk</AssemblyOriginatorKeyFile>
@@ -33,7 +33,7 @@
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
     <DefineConstants>$(DefineConstants);PORTABLE;NO_THREADS;NEW_REFLECTION;SYS_RUNTIME;DOTNET</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' or '$(TargetFramework)' == 'net4' ">
     <DefineConstants>$(DefineConstants);LIB</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'portable-net4+sl5+wp8+win8+wpa81' ">
@@ -57,7 +57,7 @@
       <Version>1.6.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' or '$(TargetFramework)' == 'net4' ">
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
