@@ -362,7 +362,7 @@ namespace Org.BouncyCastle.OpenSsl.Tests
             return new PemReader(tr, pGet);
         }
 
-        public static void Main(
+        public static void MainOld(
             string[] args)
         {
             RunTest(new ReaderTest());

@@ -41,7 +41,10 @@ namespace Org.BouncyCastle.Crypto.Tls.Tests
             get { return true; }
         }
 
-        public override void Close()
+
+
+#if PORTABLE
+        protected override void Dispose(bool disposing)
         {
             lock (this)
             {
@@ -49,6 +52,16 @@ namespace Org.BouncyCastle.Crypto.Tls.Tests
                 Monitor.PulseAll(this);
             }
         }
+#else
+        public override void Close()
+		{
+			lock (this)
+            {
+                mClosed = true;
+                Monitor.PulseAll(this);
+            }
+		}
+#endif
 
         public override void Flush()
         {

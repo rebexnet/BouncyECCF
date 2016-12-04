@@ -1,8 +1,13 @@
-﻿<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
   <PropertyGroup>
-    <TargetFramework>net45</TargetFramework>
+    <TargetFrameworks>net45;netcoreapp1.1</TargetFrameworks>
     <DefineConstants>$(DefineConstants);LIB</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp1.1' ">
+    <OutputType>Exe</OutputType>
+    <PackageTargetFallback>$(PackageTargetFallback);dotnet5.6;portable-net45+win8</PackageTargetFallback>
+    <DefineConstants>$(DefineConstants);PORTABLE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="src\**\*.cs" Exclude="**\examples\**\*.cs" />
@@ -23,7 +28,7 @@
       <Version>3.6.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

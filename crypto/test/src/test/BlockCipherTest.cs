@@ -1075,7 +1075,7 @@ namespace Org.BouncyCastle.Tests
             doTestExceptions();
         }
 
-        public static void Main(
+        public static void MainOld(
             string[] args)
         {
             RunTest(new BlockCipherTest());

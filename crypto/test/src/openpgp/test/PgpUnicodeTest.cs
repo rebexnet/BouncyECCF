@@ -123,7 +123,7 @@ namespace Org.BouncyCastle.Bcpg.OpenPgp.Tests
         }
 
 #if !LIB
-        public static void Main(string[] args)
+        public static void MainOld(string[] args)
         {
             Suite.Run(new NullListener(), NUnit.Core.TestFilter.Empty);
         }
