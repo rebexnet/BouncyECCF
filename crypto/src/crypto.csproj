@@ -2,7 +2,7 @@
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
   <PropertyGroup>
     <TargetFrameworks>netstandard1.3;netstandard1.0;portable-net4+sl5+wp8+win8+wpa81;net4</TargetFrameworks>
-    <AssemblyName>crypto</AssemblyName>
+    <AssemblyName>BouncyCastle.Crypto</AssemblyName>
     <RootNamespace>crypto</RootNamespace>
     <AssemblyOriginatorKeyFile>..\..\BouncyCastle.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
