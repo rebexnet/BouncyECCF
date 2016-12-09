@@ -44,12 +44,14 @@ namespace Org.BouncyCastle.Security
             // Signal to obfuscation tools not to change enum constants
             ((DigestAlgorithm)Enums.GetArbitraryValue(typeof(DigestAlgorithm))).ToString();
 
+#if !LITE
             algorithms[PkcsObjectIdentifiers.MD2.Id] = "MD2";
             algorithms[PkcsObjectIdentifiers.MD4.Id] = "MD4";
             algorithms[PkcsObjectIdentifiers.MD5.Id] = "MD5";
 
             algorithms["SHA1"] = "SHA-1";
             algorithms[OiwObjectIdentifiers.IdSha1.Id] = "SHA-1";
+#endif
             algorithms["SHA224"] = "SHA-224";
             algorithms[NistObjectIdentifiers.IdSha224.Id] = "SHA-224";
             algorithms["SHA256"] = "SHA-256";
@@ -63,6 +65,7 @@ namespace Org.BouncyCastle.Security
             algorithms["SHA512/256"] = "SHA-512/256";
             algorithms[NistObjectIdentifiers.IdSha512_256.Id] = "SHA-512/256";
 
+#if !LITE
             algorithms["RIPEMD-128"] = "RIPEMD128";
             algorithms[TeleTrusTObjectIdentifiers.RipeMD128.Id] = "RIPEMD128";
             algorithms["RIPEMD-160"] = "RIPEMD160";
@@ -85,12 +88,14 @@ namespace Org.BouncyCastle.Security
             oids["MD4"] = PkcsObjectIdentifiers.MD4;
             oids["MD5"] = PkcsObjectIdentifiers.MD5;
             oids["SHA-1"] = OiwObjectIdentifiers.IdSha1;
+#endif
             oids["SHA-224"] = NistObjectIdentifiers.IdSha224;
             oids["SHA-256"] = NistObjectIdentifiers.IdSha256;
             oids["SHA-384"] = NistObjectIdentifiers.IdSha384;
             oids["SHA-512"] = NistObjectIdentifiers.IdSha512;
             oids["SHA-512/224"] = NistObjectIdentifiers.IdSha512_224;
             oids["SHA-512/256"] = NistObjectIdentifiers.IdSha512_256;
+#if !LITE
             oids["SHA3-224"] = NistObjectIdentifiers.IdSha3_224;
             oids["SHA3-256"] = NistObjectIdentifiers.IdSha3_256;
             oids["SHA3-384"] = NistObjectIdentifiers.IdSha3_384;
@@ -101,6 +106,7 @@ namespace Org.BouncyCastle.Security
             oids["RIPEMD160"] = TeleTrusTObjectIdentifiers.RipeMD160;
             oids["RIPEMD256"] = TeleTrusTObjectIdentifiers.RipeMD256;
             oids["GOST3411"] = CryptoProObjectIdentifiers.GostR3411;
+#endif
         }
 
         /// <summary>
@@ -153,6 +159,7 @@ namespace Org.BouncyCastle.Security
 
                 switch (digestAlgorithm)
                 {
+#if !LITE
                     case DigestAlgorithm.GOST3411:      return new Gost3411Digest();
                     case DigestAlgorithm.KECCAK_224:    return new KeccakDigest(224);
                     case DigestAlgorithm.KECCAK_256:    return new KeccakDigest(256);
@@ -168,9 +175,11 @@ namespace Org.BouncyCastle.Security
                     case DigestAlgorithm.RIPEMD320:	    return new RipeMD320Digest();
                     case DigestAlgorithm.SHA_1:		    return new Sha1Digest();
                     case DigestAlgorithm.SHA_224:	    return new Sha224Digest();
+#endif
                     case DigestAlgorithm.SHA_256:	    return new Sha256Digest();
                     case DigestAlgorithm.SHA_384:	    return new Sha384Digest();
                     case DigestAlgorithm.SHA_512:	    return new Sha512Digest();
+#if !LITE
                     case DigestAlgorithm.SHA_512_224:   return new Sha512tDigest(224);
                     case DigestAlgorithm.SHA_512_256:   return new Sha512tDigest(256);
                     case DigestAlgorithm.SHA3_224:      return new Sha3Digest(224);
@@ -181,6 +190,7 @@ namespace Org.BouncyCastle.Security
                     case DigestAlgorithm.SHAKE256:      return new ShakeDigest(256);
                     case DigestAlgorithm.TIGER:         return new TigerDigest();
                     case DigestAlgorithm.WHIRLPOOL:     return new WhirlpoolDigest();
+#endif
                 }
             }
             catch (ArgumentException)

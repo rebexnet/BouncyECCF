@@ -4,7 +4,9 @@ using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.X9;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Agreement;
+#if !LITE
 using Org.BouncyCastle.Crypto.Agreement.Kdf;
+#endif
 using Org.BouncyCastle.Crypto.Digests;
 using Org.BouncyCastle.Utilities;
 
@@ -46,21 +48,25 @@ namespace Org.BouncyCastle.Security
 				mechanism = upper;
 			}
 
+#if !LITE
 			if (mechanism == "DH" || mechanism == "DIFFIEHELLMAN")
 				return new DHBasicAgreement();
+#endif
 
 			if (mechanism == "ECDH")
 				return new ECDHBasicAgreement();
-
+#if !LITE
             if (mechanism == "ECDHC" || mechanism == "ECCDH")
                     return new ECDHCBasicAgreement();
 
 			if (mechanism == "ECMQV")
 				return new ECMqvBasicAgreement();
+#endif
 
 			throw new SecurityUtilityException("Basic Agreement " + algorithm + " not recognised.");
-		}
+        }
 
+#if !LITE
 		public static IBasicAgreement GetBasicAgreementWithKdf(
 			DerObjectIdentifier oid,
 			string				wrapAlgorithm)
@@ -95,8 +101,9 @@ namespace Org.BouncyCastle.Security
 
 			throw new SecurityUtilityException("Basic Agreement (with KDF) " + agreeAlgorithm + " not recognised.");
 		}
+#endif
 
-		public static string GetAlgorithmName(
+        public static string GetAlgorithmName(
 			DerObjectIdentifier oid)
 		{
 			return (string) algorithms[oid.Id];

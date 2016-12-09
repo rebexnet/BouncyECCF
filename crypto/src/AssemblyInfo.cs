@@ -34,7 +34,9 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 
 [assembly: AssemblyVersion("1.8.1.0")]
+#if !NETCF_1_0
 [assembly: AssemblyFileVersion("1.8.15362.1")]
+#endif
 [assembly: AssemblyInformationalVersion("1.8.1")]
 
 //

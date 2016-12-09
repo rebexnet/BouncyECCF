@@ -124,6 +124,7 @@ namespace Org.BouncyCastle.Security
         {
         }
 
+#if !LITE
         /// <remarks>
         /// To replicate existing predictable output, replace with GetInstance("SHA1PRNG", false), followed by SetSeed(seed)
         /// </remarks>
@@ -133,6 +134,7 @@ namespace Org.BouncyCastle.Security
         {
             SetSeed(seed);
         }
+#endif
 
         /// <summary>Use the specified instance of IRandomGenerator as random source.</summary>
         /// <remarks>

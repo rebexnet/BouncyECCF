@@ -6,7 +6,9 @@ using Org.BouncyCastle.Asn1.Sec;
 using Org.BouncyCastle.Asn1.X9;
 using Org.BouncyCastle.Math;
 using Org.BouncyCastle.Math.EC;
+#if !LITE
 using Org.BouncyCastle.Math.EC.Custom.Djb;
+#endif
 using Org.BouncyCastle.Math.EC.Custom.Sec;
 using Org.BouncyCastle.Math.EC.Endo;
 using Org.BouncyCastle.Utilities;
@@ -36,6 +38,7 @@ namespace Org.BouncyCastle.Crypto.EC
             return c.Configure().SetEndomorphism(new GlvTypeBEndomorphism(c, p)).Create();
         }
 
+#if !LITE
         /*
          * curve25519
          */
@@ -67,6 +70,7 @@ namespace Org.BouncyCastle.Crypto.EC
                 return new X9ECParameters(curve, G, curve.Order, curve.Cofactor, S);
             }
         }
+#endif
 
         /*
          * secp128r1
@@ -783,7 +787,9 @@ namespace Org.BouncyCastle.Crypto.EC
 
         static CustomNamedCurves()
         {
+#if !LITE
             DefineCurve("curve25519", Curve25519Holder.Instance);
+#endif
 
             //DefineCurveWithOid("secp112r1", SecObjectIdentifiers.SecP112r1, SecP112R1Holder.Instance);
             //DefineCurveWithOid("secp112r2", SecObjectIdentifiers.SecP112r2, SecP112R2Holder.Instance);

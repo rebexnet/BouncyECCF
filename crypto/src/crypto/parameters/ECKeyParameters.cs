@@ -116,9 +116,13 @@ namespace Org.BouncyCastle.Crypto.Parameters
             if (publicKeyParamSet == null)
                 throw new ArgumentNullException("publicKeyParamSet");
 
+#if !LITE
             ECDomainParameters p = ECGost3410NamedCurves.GetByOid(publicKeyParamSet);
 
             if (p == null)
+#else
+            ECDomainParameters p;
+#endif
             {
                 X9ECParameters x9 = ECKeyPairGenerator.FindECCurveByOid(publicKeyParamSet);
 

@@ -2,10 +2,14 @@ using System.Collections;
 
 using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.CryptoPro;
+#if !LITE
 using Org.BouncyCastle.Asn1.Iana;
 using Org.BouncyCastle.Asn1.Kisa;
+#endif
 using Org.BouncyCastle.Asn1.Nist;
+#if !LITE
 using Org.BouncyCastle.Asn1.Ntt;
+#endif
 using Org.BouncyCastle.Asn1.Oiw;
 using Org.BouncyCastle.Asn1.Pkcs;
 using Org.BouncyCastle.Asn1.X9;
@@ -28,6 +32,7 @@ namespace Org.BouncyCastle.Security
 
         static GeneratorUtilities()
         {
+#if !LITE
             //
             // key generators.
             //
@@ -149,18 +154,19 @@ namespace Org.BouncyCastle.Security
                 IanaObjectIdentifiers.HmacTiger);
 
 
-
             //
             // key pair generators.
             //
             AddKpgAlgorithm("DH",
                 "DIFFIEHELLMAN");
             AddKpgAlgorithm("DSA");
+#endif
             AddKpgAlgorithm("EC",
                 // TODO Should this be an alias for ECDH?
                 X9ObjectIdentifiers.DHSinglePassStdDHSha1KdfScheme);
             AddKpgAlgorithm("ECDH",
                 "ECIES");
+#if !LITE
             AddKpgAlgorithm("ECDHC");
             AddKpgAlgorithm("ECMQV",
                 X9ObjectIdentifiers.MqvSinglePassSha1KdfScheme);
@@ -189,6 +195,7 @@ namespace Org.BouncyCastle.Security
             AddDefaultKeySizeEntries(384, "HMACSHA384");
             AddDefaultKeySizeEntries(512, "HMACSHA512", "THREEFISH-512");
             AddDefaultKeySizeEntries(1024, "THREEFISH-1024");
+#endif
         }
 
         private static void AddDefaultKeySizeEntries(int size, params string[] algorithms)
@@ -223,6 +230,7 @@ namespace Org.BouncyCastle.Security
             }
         }
 
+#if !LITE
         private static void AddHMacKeyGenerator(
             string			algorithm,
             params object[]	aliases)
@@ -238,6 +246,7 @@ namespace Org.BouncyCastle.Security
                 kgAlgorithms[alias.ToString()] = mainName;
             }
         }
+#endif
 
         // TODO Consider making this public
         internal static string GetCanonicalKeyGeneratorAlgorithm(
@@ -253,6 +262,7 @@ namespace Org.BouncyCastle.Security
             return (string)kpgAlgorithms[Platform.ToUpperInvariant(algorithm)];
         }
 
+#if !LITE
         public static CipherKeyGenerator GetKeyGenerator(
             DerObjectIdentifier oid)
         {
@@ -280,6 +290,7 @@ namespace Org.BouncyCastle.Security
 
             return new CipherKeyGenerator(defaultKeySize);
         }
+#endif
 
         public static IAsymmetricCipherKeyPairGenerator GetKeyPairGenerator(
             DerObjectIdentifier oid)
@@ -295,16 +306,19 @@ namespace Org.BouncyCastle.Security
             if (canonicalName == null)
                 throw new SecurityUtilityException("KeyPairGenerator " + algorithm + " not recognised.");
 
+#if !LITE
             if (canonicalName == "DH")
                 return new DHKeyPairGenerator();
 
             if (canonicalName == "DSA")
                 return new DsaKeyPairGenerator();
+#endif
 
             // "EC", "ECDH", "ECDHC", "ECDSA", "ECGOST3410", "ECMQV"
             if (Platform.StartsWith(canonicalName, "EC"))
                 return new ECKeyPairGenerator(canonicalName);
 
+#if !LITE
             if (canonicalName == "ELGAMAL")
                 return new ElGamalKeyPairGenerator();
 
@@ -313,6 +327,7 @@ namespace Org.BouncyCastle.Security
 
             if (canonicalName == "RSA")
                 return new RsaKeyPairGenerator();
+#endif
 
             throw new SecurityUtilityException("KeyPairGenerator " + algorithm
                 + " (" + canonicalName + ") not supported.");

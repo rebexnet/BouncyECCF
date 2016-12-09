@@ -12,7 +12,9 @@ using Org.BouncyCastle.Asn1.X9;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Crypto.Digests;
 using Org.BouncyCastle.Crypto;
+#if !LITE
 using Org.BouncyCastle.Crypto.Engines;
+#endif
 using Org.BouncyCastle.Crypto.Signers;
 using Org.BouncyCastle.Utilities;
 
@@ -286,6 +288,7 @@ namespace Org.BouncyCastle.Security
             get { return oids.Keys; }
         }
 
+#if !LITE
         public static Asn1Encodable GetDefaultX509Parameters(
             DerObjectIdentifier id)
         {
@@ -335,6 +338,7 @@ namespace Org.BouncyCastle.Security
             return new RsassaPssParameters(hashAlgorithm, maskGenAlgorithm,
                 new DerInteger(saltLen), new DerInteger(1));
         }
+#endif
 
         public static ISigner GetSigner(
             DerObjectIdentifier id)
@@ -355,6 +359,7 @@ namespace Org.BouncyCastle.Security
             if (mechanism == null)
                 mechanism = algorithm;
 
+#if !LITE
             if (mechanism.Equals("RSA"))
             {
                 return (new RsaDigestSigner(new NullDigest(), (AlgorithmIdentifier)null));
@@ -460,11 +465,13 @@ namespace Org.BouncyCastle.Security
             {
                 return (new DsaDigestSigner(new DsaSigner(), new Sha512Digest()));
             }
+#endif
 
             if (mechanism.Equals("NONEwithECDSA"))
             {
                 return (new DsaDigestSigner(new ECDsaSigner(), new NullDigest()));
             }
+#if !LITE
             if (mechanism.Equals("SHA-1withECDSA"))
             {
                 return (new DsaDigestSigner(new ECDsaSigner(), new Sha1Digest()));
@@ -473,6 +480,7 @@ namespace Org.BouncyCastle.Security
             {
                 return (new DsaDigestSigner(new ECDsaSigner(), new Sha224Digest()));
             }
+#endif
             if (mechanism.Equals("SHA-256withECDSA"))
             {
                 return (new DsaDigestSigner(new ECDsaSigner(), new Sha256Digest()));
@@ -486,6 +494,7 @@ namespace Org.BouncyCastle.Security
                 return (new DsaDigestSigner(new ECDsaSigner(), new Sha512Digest()));
             }
 
+#if !LITE
             if (mechanism.Equals("RIPEMD160withECDSA"))
             {
                 return (new DsaDigestSigner(new ECDsaSigner(), new RipeMD160Digest()));
@@ -553,6 +562,7 @@ namespace Org.BouncyCastle.Security
                     }
                 }
             }
+#endif
 
             throw new SecurityUtilityException("Signer " + algorithm + " not recognised.");
         }

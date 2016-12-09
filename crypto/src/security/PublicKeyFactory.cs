@@ -5,9 +5,13 @@ using System.Text;
 
 using Org.BouncyCastle.Asn1;
 using Org.BouncyCastle.Asn1.CryptoPro;
+#if !LITE
 using Org.BouncyCastle.Asn1.Oiw;
+#endif
 using Org.BouncyCastle.Asn1.Pkcs;
+#if !LITE
 using Org.BouncyCastle.Asn1.Sec;
+#endif
 using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.Asn1.X9;
 using Org.BouncyCastle.Crypto;
@@ -46,6 +50,7 @@ namespace Org.BouncyCastle.Security
             AlgorithmIdentifier algID = keyInfo.AlgorithmID;
             DerObjectIdentifier algOid = algID.Algorithm;
 
+#if !LITE
             // TODO See RSAUtil.isRsaOid in Java build
             if (algOid.Equals(PkcsObjectIdentifiers.RsaEncryption)
                 || algOid.Equals(X509ObjectIdentifiers.IdEARsa)
@@ -128,6 +133,9 @@ namespace Org.BouncyCastle.Security
                 return new DsaPublicKeyParameters(derY.Value, parameters);
             }
             else if (algOid.Equals(X9ObjectIdentifiers.IdECPublicKey))
+#else
+            if (algOid.Equals(X9ObjectIdentifiers.IdECPublicKey))
+#endif
             {
                 X962Parameters para = new X962Parameters(algID.Parameters.ToAsn1Object());
 
@@ -153,6 +161,7 @@ namespace Org.BouncyCastle.Security
                 ECDomainParameters dParams = new ECDomainParameters(x9.Curve, x9.G, x9.N, x9.H, x9.GetSeed());
                 return new ECPublicKeyParameters(q, dParams);
             }
+#if !LITE
             else if (algOid.Equals(CryptoProObjectIdentifiers.GostR3410x2001))
             {
                 Gost3410PublicKeyAlgParameters gostParams = new Gost3410PublicKeyAlgParameters(
@@ -218,12 +227,14 @@ namespace Org.BouncyCastle.Security
 
                 return new Gost3410PublicKeyParameters(y, algParams.PublicKeyParamSet);
             }
+#endif
             else
             {
                 throw new SecurityUtilityException("algorithm identifier in key not recognised: " + algOid);
             }
         }
 
+#if !LITE
         private static bool IsPkcsDHParam(Asn1Sequence seq)
         {
             if (seq.Count == 2)
@@ -249,5 +260,6 @@ namespace Org.BouncyCastle.Security
 
             return new DHPublicKeyParameters(y, dhParams, algOid);
         }
+#endif
     }
 }
