@@ -1,4 +1,4 @@
-#if !(NETCF_1_0 || SILVERLIGHT || PORTABLE || ANDROID)
+#if !(NETCF_1_0 || SILVERLIGHT || PORTABLE || LITE)
 
 using System;
 using System.Security.Cryptography;
